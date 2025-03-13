@@ -1,81 +1,81 @@
 ---
-scrape_social_media_reviews:
-  description: Using the provided {social_media_urls}, scrape online reviews, forum
-    discussions, and social media posts related to customer support issues. Leverage
-    the ScrapeWebsiteTool to capture the raw data, ensuring to capture details linked
-    with {research_keywords}.
-  expected_output: Raw scraped data including customer reviews and social media posts
-    highlighting themes like long wait times and other support performance issues
-    using {research_keywords}.
-  async_execution: false
-  agent: social_media_researcher
-analyze_social_media_feedback:
-  description: Analyze the scraped social media data to identify recurring customer
-    support issues using the keywords {research_keywords}. Focus on spotting patterns
-    such as long wait times, language barriers, and limited after-hours support.
-  expected_output: A structured summary listing recurring customer support problems
-    extracted from social media reviews and discussions.
-  async_execution: false
-  agent: social_media_researcher
-  context:
-  - scrape_social_media_reviews
-scrape_news_articles:
-  description: Utilize {news_source_urls} to scrape recent news articles that mention
-    customer support challenges or improvements. Use SeleniumScrapingTool to access
-    dynamic content when needed.
-  expected_output: Raw content from news articles including references to customer
-    support issues, complaints, or improvements.
-  async_execution: false
-  agent: news_analysis_specialist
-extract_news_insights:
-  description: Extract key data points, quotes, and evidence from the news articles
-    that indicate systemic customer support issues, guided by {research_keywords}.
-    Use ScrapeElementFromWebsiteTool to target specific parts of the articles.
-  expected_output: A collection of extracted insights and data points that highlight
-    recurring customer support problems as reported in the news.
-  async_execution: false
-  agent: news_analysis_specialist
-  context:
-  - scrape_news_articles
-scrape_platform_feedback:
-  description: Access websites listed in {local_platform_list}, including Daraz.pk,
-    Foodpanda.pk, and others, to scrape customer feedback and support complaints.
-    Employ tools like ScrapeWebsiteTool or SeleniumScrapingTool based on each site’s
-    structure.
-  expected_output: Raw customer feedback and complaint data from the specified platforms
-    capturing direct user experiences and issues.
-  async_execution: false
-  agent: platform_investigator
-extract_platform_examples:
-  description: From the scraped feedback of {local_platform_list}, extract concrete
-    examples and case studies that illustrate customer support pain points, using
-    targeted extraction with ScrapeElementFromWebsiteTool.
-  expected_output: A curated list of case studies and real-world examples that showcase
-    recurring customer support issues from the designated platforms.
-  async_execution: false
-  agent: platform_investigator
-  context:
-  - scrape_platform_feedback
-aggregate_and_consolidate_data:
-  description: Aggregate and consolidate data from social media analysis, news insights,
-    and platform-specific feedback. Analyze the combined data to identify and verify
-    recurring customer support issues based on {research_keywords}.
-  expected_output: A consolidated dataset summarizing key recurring customer support
-    issues along with supporting evidence from multiple sources.
-  async_execution: false
-  agent: data_aggregator_insight
-  context:
+scrape_social_media_reviews=Task(
+  description=(" Using the provided {social_media_urls}, scrape online reviews, forum"
+  "  discussions, and social media posts related to customer support issues. Leverage"
+  "  the ScrapeWebsiteTool to capture the raw data, ensuring to capture details linked"
+   " with {research_keywords}."),
+  expected_output=("Raw scraped data including customer reviews and social media posts"
+   " highlighting themes like long wait times and other support performance issues"
+    "using {research_keywords}."),
+  async_execution= false,
+  agent= social_media_researcher,)
+analyze_social_media_feedback=Task(
+  description=(" Analyze the scraped social media data to identify recurring customer"
+   " support issues using the keywords {research_keywords}. Focus on spotting patterns"
+    "such as long wait times, language barriers, and limited after-hours support."),
+  expected_output=("A structured summary listing recurring customer support problems"
+   " extracted from social media reviews and discussions."),
+  async_execution= false,
+  agent= social_media_researcher,
+  context=
+  - scrape_social_media_reviews,)
+scrape_news_articles=Task(
+  description=(" Utilize {news_source_urls} to scrape recent news articles that mention"
+  "  customer support challenges or improvements. Use SeleniumScrapingTool to access"
+   " dynamic content when needed."),
+  expected_output=( "Raw content from news articles including references to customer"
+   " support issues, complaints, or improvements."),
+  async_execution= false,
+  agent= news_analysis_specialist,)
+extract_news_insights=Task(
+  description=( "Extract key data points, quotes, and evidence from the news articles"
+   " that indicate systemic customer support issues, guided by {research_keywords}."
+   " Use ScrapeElementFromWebsiteTool to target specific parts of the articles."),
+  expected_output=( "A collection of extracted insights and data points that highlight"
+    "recurring customer support problems as reported in the news."),
+  async_execution= false,
+  agent= news_analysis_specialist,
+  context=
+  - scrape_news_articles,)
+scrape_platform_feedback=Task(
+  description=( "Access websites listed in {local_platform_list}, including Daraz.pk,"
+   " Foodpanda.pk, and others, to scrape customer feedback and support complaints."
+   " Employ tools like ScrapeWebsiteTool or SeleniumScrapingTool based on each site’s"
+   " structure."),
+  expected_output=(" Raw customer feedback and complaint data from the specified platforms"
+   " capturing direct user experiences and issues."),
+  async_execution= false,
+  agent= platform_investigator,)
+extract_platform_examples=Task(
+  description=( "From the scraped feedback of {local_platform_list}, extract concrete"
+  "  examples and case studies that illustrate customer support pain points, using"
+   " targeted extraction with ScrapeElementFromWebsiteTool."),
+  expected_output=( "A curated list of case studies and real-world examples that showcase"
+   " recurring customer support issues from the designated platforms."),
+  async_execution= false,
+  agent= platform_investigator,
+  context=
+  - scrape_platform_feedback,)
+aggregate_and_consolidate_data=Task(
+  description=( "Aggregate and consolidate data from social media analysis, news insights,"
+   " and platform-specific feedback. Analyze the combined data to identify and verify"
+    "recurring customer support issues based on {research_keywords}."),
+  expected_output=(" A consolidated dataset summarizing key recurring customer support"
+   " issues along with supporting evidence from multiple sources."),
+  async_execution= false,
+  agent= data_aggregator_insight,
+  context=
   - analyze_social_media_feedback
   - extract_news_insights
-  - extract_platform_examples
-generate_comprehensive_report:
-  description: Using the aggregated data from previous tasks, generate a comprehensive
-    report that details the identified customer support pain points. Include actionable
-    insights and recommendations for improvement, guided by the trends from {research_keywords}.
-  expected_output: A formatted comprehensive report summarizing key pain points, supported
-    by data and real-world examples, along with actionable recommendations for enhancing
-    customer support.
-  async_execution: false
-  agent: data_aggregator_insight
-  context:
-  - aggregate_and_consolidate_data
+  - extract_platform_examples,)
+generate_comprehensive_report=Task(
+  description=( "Using the aggregated data from previous tasks, generate a comprehensive"
+   " report that details the identified customer support pain points. Include actionable"
+    "insights and recommendations for improvement, guided by the trends from {research_keywords}."),
+  expected_output=( "A formatted comprehensive report summarizing key pain points, supported"
+    "by data and real-world examples, along with actionable recommendations for enhancing"
+    "customer support."),
+  async_execution= false,
+  agent= data_aggregator_insight,
+  context=
+  - aggregate_and_consolidate_data,)
